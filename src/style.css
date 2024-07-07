@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.con {
+  min-height: 100vh;
+}
+
+.delbtn {
+  top: 50%;
+  left: 0;
+  transform: translate(-100%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.list li:hover .delbtn {
+  opacity: 1;
+}
+
+.list li.plus {
+  border-right: 5px solid var(--green-500);
+}
+
+.list li.minus {
+  border-right: 5px solid var(--red-500);
+}
