@@ -2,6 +2,7 @@
 
 An upgraded version of  [Vue Expense Tracker](https://github.com/bradtraversy/vue-expense-tracker). 
 
+## Feature
 - New UI with TailwindCSS
 - Color Mode Responsive
 - Add and remove expenses/income
@@ -15,7 +16,7 @@ An upgraded version of  [Vue Expense Tracker](https://github.com/bradtraversy/vu
 ## Project Setup
 
 ```sh
-npm install
+npm i
 ```
 
 ### Compile and Hot-Reload for Development
@@ -30,4 +31,14 @@ npm run dev
 npm run build
 ```
 
-#### License MIT
+## Credits
+- Created by [Brad Traversy](https://github.com/bradtraversy)
+- Created by [Farhan Madni](https://github.com/MFM-347)
+### Powered with
+- [VueJS](https://github.com/vuejs) For Markup and Script
+- [TailwindCSS](https://github.com/tailwindlabs/tailwindcss) For Styles
+- [vue3 Toastify](https://github.com/jerrywu001/vue3-toastify) For Notification UI
+- [ViteJS](https://github.com/vitejs) For Development Server and Front-End Build Tool
+
+
+[![License MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
