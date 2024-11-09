@@ -1,11 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.con {
+.bgc {
   min-height: 100vh;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h6,
+.heading {
+  font-family: "Rubik", sans-serif;
+}
+
+a,
+button,
+span,
+p,
+label,
+.text {
+  font-family: "Raleway", sans-serif;
 }
 
 .delbtn {
@@ -13,7 +31,7 @@
   left: 0;
   transform: translate(-100%, -50%);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: background opacity 0.3s ease-in-out;
 }
 
 .list li:hover .delbtn {
@@ -21,9 +39,23 @@
 }
 
 .list li.plus {
-  border-right: 5px solid var(--green-500);
+  @apply border-b-2 border-green-500;
 }
 
 .list li.minus {
-  border-right: 5px solid var(--red-500);
+  @apply border-b-2 border-red-500;
+}
+
+.heading {
+  @apply border-b-2 border-gray-400 dark:border-gray-300 p-2.5 mt-8 mb-2.5 mx-0 font-bold text-2xl;
+}
+
+.inp {
+  @apply rounded-md p-2.5 border border-c1-400 dark:border-c1-600 placeholder:text-gray-500 dark:placeholder:text-gray-400 bg-c1-300 dark:bg-c1-900 focus:bg-c1-200 dark:focus:bg-c1-700 focus:border-c1-600 dark:focus:border-c1-400 w-full block outline-none;
+  transition: background 0.3s ease-in-out;
+}
+
+.btn {
+  @apply block mt-3 mb-5 mx-auto p-2.5 font-bold w-full rounded-lg text-gray-950 bg-violet-500 hover:bg-violet-600;
+  transition: background 0.3s ease-in-out;
 }

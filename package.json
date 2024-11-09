@@ -1,9 +1,8 @@
 {
-  "name": "vue-expense-tracker",
+  "name": "app",
   "private": true,
-  "description": "Expense tracker built with Vue 3",
-  "version": "0.0.0",
-  "homepage": "https://MFM-347.github.io/Vue-Expense-Tracker",
+  "version": "1.1.0",
+  "homepage": "https://MFM-347.github.io/Expense-Tracker",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -19,7 +18,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
     "autoprefixer": "^10.4.19",
-    "gh-pages": "^6.1.1",
+    "gh-pages": "^6.2.0",
     "postcss": "^8.4.39",
     "tailwindcss": "^3.4.4",
     "vite": "^5.3.1"
