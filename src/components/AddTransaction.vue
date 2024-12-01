@@ -2,7 +2,7 @@
   <h3 class="heading">Add new transaction</h3>
   <form id="form" @submit.prevent="onSubmit">
     <div class="form-control">
-      <label class="inline-block my-2.5 mx-0" for="text">Title</label>
+      <label class="inline-block my-2 mx-0" for="text">Title</label>
       <input
         class="inp"
         type="text"
@@ -13,8 +13,9 @@
     </div>
     <div class="form-control">
       <label class="inline-block my-2.5 mx-0" for="amount">
-        Amount <br />
-        (negative (-) - expense, positive (+) - income)</label
+        <b>Amount Types:-</b><br />
+        <b>negative (-):</b> expense;<br />
+        <b>positive (+):</b> income</label
       >
       <input
         class="inp"

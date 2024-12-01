@@ -1,58 +1,80 @@
 <template>
-  <div
-    class="bgc bg-c1-100 text-gray-900 dark:bg-c1-950 dark:text-gray-100 flex flex-col justify-center items-center text-base"
-  >
+  <div class="bgc flex flex-col justify-center items-center text-base">
     <AppHeader />
-    <div class="container w-[25rem] my-7 mx-auto">
+    <div class="container w-full sm:w-[20rem] lg:w-[25rem] my-7 mx-auto">
       <UserBalance :total="total" :income="income" :expenses="expenses" />
+      <FilterTransaction
+        :activeFilter="activeFilter"
+        @filterChanged="updateFilter"
+      />
       <TransactionList
         :transactions="transactions"
+        :activeFilter="activeFilter"
         @transactionDeleted="handleTransactionDeleted"
       />
       <AddTransaction @transactionSubmitted="handleTransactionSubmitted" />
-      <div class="mt-4 flex space-x-3">
-        <button @click="exportTransactions" class="btn">Export</button>
-        <input type="file" @change="importTransactions" class="btn" />
+      <div class="flex flex-row space-x-2 justify-center mt-2">
+        <input
+          type="file"
+          accept=".json"
+          id="fileInput"
+          class="hidden"
+          @change="importTransactions"
+        />
+        <label for="fileInput" class="btn text-center cursor-pointer">
+          <i class="fa fa-upload mr-2"></i> Import
+        </label>
+        <button class="btn text-center" @click="exportTransactions">
+          <i class="fa fa-download mr-2"></i> Export
+        </button>
       </div>
     </div>
+    <DarkMode />
   </div>
 </template>
+
 <script setup>
-import AppHeader from "./components/AppHeader.vue";
-import UserBalance from "./components/UserBalance.vue";
-import TransactionList from "./components/TransactionList.vue";
-import AddTransaction from "./components/AddTransaction.vue";
 import { ref, computed, onMounted } from "vue";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
+import AppHeader from "./components/AppHeader.vue";
+import UserBalance from "./components/UserBalance.vue";
+import TransactionList from "./components/TransactionList.vue";
+import FilterTransaction from "./components/filterTransaction.vue";
+import AddTransaction from "./components/AddTransaction.vue";
+import DarkMode from "./components/darkMode.vue";
 
-const transactions = ref([]);
+const transactions = ref([
+  { id: 1, title: "Salary", amount: 1500 },
+  { id: 2, title: "Groceries", amount: -250 },
+]);
+const activeFilter = ref("all");
 onMounted(() => {
   const savedTransactions = JSON.parse(localStorage.getItem("transactions"));
   if (savedTransactions) {
     transactions.value = savedTransactions;
   }
 });
-const total = computed(() => {
-  return transactions.value.reduce((acc, transaction) => {
-    return acc + transaction.amount;
-  }, 0);
-});
-const income = computed(() => {
-  return transactions.value
-    .filter((transaction) => transaction.amount > 0)
-    .reduce((acc, transaction) => acc + transaction.amount, 0);
-});
-const expenses = computed(() => {
-  return transactions.value
-    .filter((transaction) => transaction.amount < 0)
-    .reduce((acc, transaction) => acc + transaction.amount, 0);
-});
-const handleTransactionSubmitted = (transactionData) => {
+const total = computed(() =>
+  transactions.value.reduce((sum, t) => sum + t.amount, 0),
+);
+const income = computed(() =>
+  transactions.value
+    .filter((t) => t.amount > 0)
+    .reduce((sum, t) => sum + t.amount, 0),
+);
+const expenses = computed(() =>
+  transactions.value
+    .filter((t) => t.amount < 0)
+    .reduce((sum, t) => sum + t.amount, 0),
+);
+const updateFilter = (filter) => {
+  activeFilter.value = filter;
+};
+const handleTransactionSubmitted = (transaction) => {
   transactions.value.push({
+    ...transaction,
     id: generateUniqueId(),
-    title: transactionData.title,
-    amount: transactionData.amount,
   });
   saveTransactionsToLocalStorage();
   toast("Transaction added.", {
@@ -60,15 +82,6 @@ const handleTransactionSubmitted = (transactionData) => {
     autoClose: 1000,
     type: "success",
   });
-};
-const generateUniqueId = () => {
-  if (transactions.value.length === 0) {
-    return 0;
-  }
-  const maxId = Math.max(
-    ...transactions.value.map((transaction) => transaction.id),
-  );
-  return maxId + 1;
 };
 const handleTransactionDeleted = (id) => {
   transactions.value = transactions.value.filter(
@@ -80,6 +93,12 @@ const handleTransactionDeleted = (id) => {
     autoClose: 1000,
     type: "success",
   });
+};
+const generateUniqueId = () => {
+  if (transactions.value.length === 0) {
+    return 1;
+  }
+  return Math.max(...transactions.value.map((t) => t.id)) + 1;
 };
 const saveTransactionsToLocalStorage = () => {
   localStorage.setItem("transactions", JSON.stringify(transactions.value));
@@ -119,6 +138,7 @@ const importTransactions = (event) => {
         throw new Error("Invalid file format");
       }
     } catch (error) {
+      console.error("Import error:", error);
       toast("Error importing transactions.", {
         theme: "auto",
         autoClose: 1000,

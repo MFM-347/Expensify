@@ -1,18 +1,18 @@
-# Vue 3 Expense Tracker
+# Expense Tracker
 
 Explore **Expense-Tracker**, an intuitive, open-source tool for tracking personal finances. Perfect for budget management, spending monitoring, and achieving financial goals.
 
 ## Features
 
-- Enhanced UI with TailwindCSS
+- Modern UI with TailwindCSS
+- A new UI/UX Experience
 - Dark Mode Responsive
-- Add and remove expenses/income
-- Track balance
+- User Friendly UI
+- Mobile Optimized
 - Save Data to local storage
 - Export Data as JSON
 - Import Data from JSON
-- Using **Vue3 Toastify** for notifications
-- It uses Vue 3 syntax
+- Uses Vue 3 syntax
 
 ## Project Setup
 
@@ -20,7 +20,13 @@ Explore **Expense-Tracker**, an intuitive, open-source tool for tracking persona
 npm i
 ```
 
-### Compile and Hot-Reload for Development
+### Lint the code with Eslint
+
+```sh
+npm run dev
+```
+
+### Start Development Server
 
 ```sh
 npm run dev
@@ -32,6 +38,12 @@ npm run dev
 npm run build
 ```
 
+### Do More with Short
+
+```sh
+npm start
+```
+
 ## Credits
 
 - Created by [Brad Traversy](https://github.com/bradtraversy)
@@ -41,7 +53,8 @@ npm run build
 
 - [VueJS](https://github.com/vuejs) For Markup and Script
 - [TailwindCSS](https://github.com/tailwindlabs/tailwindcss) For Styles
-- [vue3 Toastify](https://github.com/jerrywu001/vue3-toastify) For Notification UI
+- [Font Awesome](https://github.com/FortAwesome/Font-Awesome) For Icons
+- [Vue3 Toastify](https://github.com/jerrywu001/vue3-toastify) For Notification UI
 - [ViteJS](https://github.com/vitejs) For Development Server and Front-End Build Tool
 
 ## License
