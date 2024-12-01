@@ -2,7 +2,7 @@
   "name": "app",
   "private": true,
   "version": "1.1.0",
-  "homepage": "https://mfm-347.github.io/expense-tracker",
+  "homepage": "https://mfm-347.github.io/Expense-Eracker",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -18,13 +18,14 @@
     "vue3-toastify": "^0.2.2"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.15",
     "@eslint/js": "^9.14.0",
     "@vitejs/plugin-vue": "^5.2.1",
+    "autoprefixer": "^10.4.20",
     "eslint": "^9.14.0",
     "eslint-plugin-vue": "^9.30.0",
+    "gh-pages": "^6.2.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
     "vite": "^6.0.1",
     "vite-plugin-vue-devtools": "^7.6.5"
   }

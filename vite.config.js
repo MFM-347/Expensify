@@ -7,7 +7,7 @@ import vueDevTools from "vite-plugin-vue-devtools";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [vue(), vueDevTools()],
-  base: "/expense-tracker/",
+  base: "/Expense-Eracker/",
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
