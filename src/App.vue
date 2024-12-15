@@ -1,14 +1,16 @@
 <template>
-  <div class="bgc flex flex-col justify-center items-center text-base">
+  <div class="flex flex-col justify-center items-center text-base">
     <AppHeader />
-    <div class="container w-full sm:w-[20rem] lg:w-[25rem] my-7 mx-auto">
+    <div
+      class="container w-full px-4 sm:w-[20rem] lg:w-[25rem] mt-4 mb-10 mx-auto"
+    >
       <UserBalance :total="total" :income="income" :expenses="expenses" />
       <FilterTransaction
         :activeFilter="activeFilter"
         @filterChanged="updateFilter"
       />
       <TransactionList
-        :transactions="transactions"
+        :transactions="filteredTransactions"
         :activeFilter="activeFilter"
         @transactionDeleted="handleTransactionDeleted"
       />
@@ -29,7 +31,7 @@
         </button>
       </div>
     </div>
-    <DarkMode />
+    <NavBar class="fixed bottom-4 mx-auto py-2" />
   </div>
 </template>
 
@@ -42,13 +44,28 @@ import UserBalance from "./components/UserBalance.vue";
 import TransactionList from "./components/TransactionList.vue";
 import FilterTransaction from "./components/filterTransaction.vue";
 import AddTransaction from "./components/AddTransaction.vue";
-import DarkMode from "./components/darkMode.vue";
+import NavBar from "./components/NavBar.vue";
 
 const transactions = ref([
-  { id: 1, title: "Salary", amount: 1500 },
-  { id: 2, title: "Groceries", amount: -250 },
+  {
+    id: 1,
+    title: "Salary",
+    category: "Income",
+    date: "2024-12-01",
+    amount: 1500,
+  },
+  {
+    id: 2,
+    title: "Groceries",
+    category: "Food",
+    date: "2024-12-02",
+    amount: -250,
+  },
 ]);
 const activeFilter = ref("all");
+const startDate = ref("");
+const endDate = ref("");
+const filterCategory = ref("all");
 onMounted(() => {
   const savedTransactions = JSON.parse(localStorage.getItem("transactions"));
   if (savedTransactions) {
@@ -68,8 +85,34 @@ const expenses = computed(() =>
     .filter((t) => t.amount < 0)
     .reduce((sum, t) => sum + t.amount, 0),
 );
+const filteredTransactions = computed(() => {
+  let filtered = transactions.value;
+  if (activeFilter.value !== "all") {
+    filtered = filtered.filter((t) =>
+      activeFilter.value === "income" ? t.amount > 0 : t.amount < 0,
+    );
+  }
+  if (startDate.value) {
+    filtered = filtered.filter(
+      (t) => new Date(t.date) >= new Date(startDate.value),
+    );
+  }
+  if (endDate.value) {
+    filtered = filtered.filter(
+      (t) => new Date(t.date) <= new Date(endDate.value),
+    );
+  }
+  if (filterCategory.value !== "all") {
+    filtered = filtered.filter((t) => t.category === filterCategory.value);
+  }
+
+  return filtered;
+});
 const updateFilter = (filter) => {
-  activeFilter.value = filter;
+  activeFilter.value = filter.type;
+  startDate.value = filter.startDate;
+  endDate.value = filter.endDate;
+  filterCategory.value = filter.category;
 };
 const handleTransactionSubmitted = (transaction) => {
   transactions.value.push({

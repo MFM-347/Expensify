@@ -7,12 +7,13 @@
         :key="transaction.id"
         :class="[
           transaction.amount < 0 ? 'minus text-red-500' : 'plus text-green-500',
-          'flex justify-between items-center p-4 my-2 rounded-lg shadow-md bg-zinc-200 dark:bg-zinc-800 dark:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105',
+          'flex justify-between items-center p-4 my-2 rounded-lg shadow-md bg-zinc-200 dark:bg-zinc-800 dark:shadow-md transition-all duration-300 ease-in-out transform hover:scale-105',
         ]"
       >
         <span class="font-medium flex-1 truncate">
-          {{ transaction.title }}
+          {{ transaction.title }} ({{ transaction.category }})
         </span>
+        <span class="ml-4">{{ transaction.date }}</span>
         <span class="font-bold text-lg ml-4">
           ${{ Math.abs(transaction.amount).toFixed(2) }}
         </span>

@@ -1,7 +1,7 @@
 {
   "name": "app",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.2.0",
   "homepage": "https://mfm-347.github.io/Expense-Eracker",
   "type": "module",
   "scripts": {
@@ -11,7 +11,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "lint": "eslint . --fix",
-    "start": "npm run lint && cls && npx prettier -w . && npm run dev"
+    "start": "npx prettier -w . && npm run dev"
   },
   "dependencies": {
     "vue": "^3.5.13",
