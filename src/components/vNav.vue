@@ -11,10 +11,8 @@
         <Bars3Icon class="w-6 h-6 text-gray-600 dark:text-gray-300" />
       </button>
       <div class="flex gap-2 items-center">
-        <span
-          class="text-xl sm:text-2xl font-bold text-primary-600 dark:text-primary-400"
-        >
-          ExpenseTracker
+        <span class="text-xl sm:text-2xl font-bold text-primary-600 dark:text-primary-400">
+          Expense Tracker
         </span>
       </div>
       <ul class="flex gap-3 sm:gap-4 ml-auto text-xl capitalize items-center">
@@ -24,10 +22,7 @@
             class="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
             :aria-label="isDark ? 'Enable Light Mode' : 'Enable Dark Mode'"
           >
-            <SunIcon
-              v-if="isDark"
-              class="w-5 h-5 text-gray-600 dark:text-gray-300"
-            />
+            <SunIcon v-if="isDark" class="w-5 h-5 text-gray-600 dark:text-gray-300" />
             <MoonIcon v-else class="w-5 h-5 text-gray-600 dark:text-gray-300" />
           </button>
         </li>
@@ -46,28 +41,23 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import {
-  Bars3Icon,
-  SunIcon,
-  MoonIcon,
-  CodeBracketIcon,
-} from "@heroicons/vue/24/outline";
+import { ref, onMounted } from 'vue'
+import { Bars3Icon, SunIcon, MoonIcon, CodeBracketIcon } from '@heroicons/vue/24/outline'
 
-const isDark = ref(false);
+const isDark = ref(false)
 const toggleTheme = () => {
-  isDark.value = !isDark.value;
-  localStorage.setItem("dark-mode", isDark.value ? "enabled" : "disabled");
-  document.documentElement.classList.toggle("dark", isDark.value);
-};
+  isDark.value = !isDark.value
+  localStorage.setItem('dark-mode', isDark.value ? 'enabled' : 'disabled')
+  document.documentElement.classList.toggle('dark', isDark.value)
+}
 onMounted(() => {
-  const mode = localStorage.getItem("dark-mode");
-  if (mode === "enabled") {
-    isDark.value = true;
-    document.documentElement.classList.add("dark");
+  const mode = localStorage.getItem('dark-mode')
+  if (mode === 'enabled') {
+    isDark.value = true
+    document.documentElement.classList.add('dark')
   }
-});
+})
 const openGithub = () => {
-  window.open("https://github.com/MFM-347/Expense-Tracker", "_blank");
-};
+  window.open('https://github.com/MFM-347/Expense-Tracker', '_blank')
+}
 </script>

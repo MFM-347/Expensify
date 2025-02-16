@@ -1,34 +1,42 @@
 {
   "name": "app",
+  "version": "1.4.0",
   "private": true,
-  "version": "1.3.0",
-  "homepage": "https://mfm-347.github.io/Expense-Eracker",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
     "lint": "eslint . --fix",
-    "start": "npx prettier -w . && npm run lint && clear && npm run dev"
+    "format": "prettier -w .",
+    "start": "npm run lint && npm run format && cls && npm run dev",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@heroicons/vue": "^2.2.0",
-    "pinia": "^2.3.0",
+    "@tailwindcss/vite": "^4.0.6",
+    "pinia": "^2.3.1",
+    "tailwindcss": "^4.0.6",
     "vue": "^3.5.13",
-    "vue3-toastify": "^0.2.2"
+    "vue3-toastify": "^0.2.8"
   },
   "devDependencies": {
-    "@eslint/js": "^9.14.0",
+    "@eslint/js": "^9.18.0",
+    "@vite-pwa/assets-generator": "^0.2.6",
     "@vitejs/plugin-vue": "^5.2.1",
-    "autoprefixer": "^10.4.20",
-    "eslint": "^9.14.0",
-    "eslint-plugin-vue": "^9.30.0",
-    "gh-pages": "^6.2.0",
-    "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.15",
-    "vite": "^6.0.1",
-    "vite-plugin-vue-devtools": "^7.6.5"
+    "@vue/eslint-config-prettier": "^10.1.0",
+    "eslint": "^9.18.0",
+    "eslint-plugin-vue": "^9.32.0",
+    "gh-pages": "^6.3.0",
+    "prettier": "^3.4.2",
+    "vite": "^6.0.11",
+    "vite-plugin-pwa": "^0.21.1",
+    "vite-plugin-vue-devtools": "^7.7.1",
+    "workbox-window": "^7.3.0"
+  },
+  "overrides": {
+    "sharp": "0.32.6",
+    "sharp-ico": "0.1.5"
   }
 }

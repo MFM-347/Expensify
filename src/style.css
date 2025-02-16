@@ -1,7 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@config '../tailwind.config.js';
 
+@custom-variant hover (&:hover);
 * {
   box-sizing: border-box;
   font-optical-sizing: auto;
@@ -13,7 +13,7 @@ h4,
 h5,
 h6,
 .heading {
-  font-family: "Oswald", sans-serif !important;
+  font-family: 'Oswald', sans-serif !important;
 }
 a,
 button,
@@ -22,7 +22,7 @@ span,
 p,
 label,
 .text {
-  font-family: "Source Sans 3", sans-serif !important;
+  font-family: 'Source Sans 3', sans-serif !important;
 }
 body {
   @apply bg-zinc-100 dark:bg-zinc-900 text-gray-900 dark:text-gray-100;
@@ -35,7 +35,9 @@ body {
   left: 0;
   transform: translate(-100%, -50%);
   opacity: 0;
-  transition: background opacity 0.3s ease-in-out;
+  transition:
+    background 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
 }
 .list li:hover .delbtn {
   opacity: 1;
@@ -44,7 +46,7 @@ body {
   @apply border-b-2 border-green-500;
 }
 .list li.minus {
-  @apply border-b-2 border-red-500;
+  @apply border-b-2 border-red-600;
 }
 .heading {
   @apply border-b-2 border-gray-400 dark:border-gray-300 p-2 my-2 mx-0 font-bold text-2xl;
@@ -62,42 +64,44 @@ body {
 .btn {
   @apply transition-colors duration-300 ease-in;
 }
-* > select {
+*:is(input, select, textarea, button) {
   accent-color: #3f7bfc;
 }
-html,
-.scroll {
-  scrollbar-width: thin;
-  scrollbar-color: #d1d5db transparent;
-}
-html.dark,
-.dark .scroll {
-  scrollbar-color: #374151 transparent;
-}
-html::-webkit-scrollbar,
-.scroll::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-html::-webkit-scrollbar-track,
-.scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-html::-webkit-scrollbar-thumb,
-.scroll::-webkit-scrollbar-thumb {
-  background: #d1d5db;
-  border-radius: 4px;
-}
-html.dark::-webkit-scrollbar-thumb,
-.dark .scroll::-webkit-scrollbar-thumb {
-  background: #374151;
-}
-html::-webkit-scrollbar-thumb:hover,
-.scroll::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
-}
+@layer scroll {
+  html,
+  .scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #d1d5db transparent;
+  }
+  html.dark,
+  .dark .scroll {
+    scrollbar-color: #374151 transparent;
+  }
+  html::-webkit-scrollbar,
+  .scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  html::-webkit-scrollbar-track,
+  .scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  html::-webkit-scrollbar-thumb,
+  .scroll::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 4px;
+  }
+  html.dark::-webkit-scrollbar-thumb,
+  .dark .scroll::-webkit-scrollbar-thumb {
+    background: #374151;
+  }
+  html::-webkit-scrollbar-thumb:hover,
+  .scroll::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+  }
 
-html.dark::-webkit-scrollbar-thumb:hover,
-.dark .scroll::-webkit-scrollbar-thumb:hover {
-  background: #4b5563;
+  html.dark::-webkit-scrollbar-thumb:hover,
+  .dark .scroll::-webkit-scrollbar-thumb:hover {
+    background: #4b5563;
+  }
 }

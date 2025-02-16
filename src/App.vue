@@ -10,11 +10,7 @@
           <div
             class="sticky top-8 h-[calc(100vh-4rem)] overflow-y-scroll px-4 lg:px-0 py-8 lg:py-0 scroll scroll-smooth"
           >
-            <vSide
-              :filter="filter"
-              @filterChanged="updateFilter"
-              @txnSubmitted="onTxnSubmit"
-            />
+            <vSide :filter="filter" @filterChanged="updateFilter" @txnSubmitted="onTxnSubmit" />
           </div>
         </div>
       </Transition>
@@ -66,169 +62,154 @@
       </div>
     </div>
   </div>
+  <PWABadge />
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
-import { useFilterStore } from "./stores";
-import { ArrowUpTrayIcon, ArrowDownTrayIcon } from "@heroicons/vue/24/outline";
-import { toast } from "vue3-toastify";
-import "vue3-toastify/dist/index.css";
-import vNav from "./components/vNav.vue";
-import vBalance from "./components/vBalance.vue";
-import vHistory from "./components/vHistory.vue";
-import vSide from "./components/vSide.vue";
+import { ref, computed, onMounted } from 'vue'
+import { useFilterStore } from './stores'
+import { ArrowUpTrayIcon, ArrowDownTrayIcon } from '@heroicons/vue/24/outline'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+import vNav from './components/vNav.vue'
+import vBalance from './components/vBalance.vue'
+import vHistory from './components/vHistory.vue'
+import vSide from './components/vSide.vue'
+import PWABadge from './components/PWABadge.vue'
 
-const filterStore = useFilterStore();
-const filter = ref("all");
-const showSide = ref(false);
+const filterStore = useFilterStore()
+const filter = ref('all')
+const showSide = ref(false)
 
 const updateFilter = (filter) => {
-  filter.value = filter;
-};
+  filter.value = filter
+}
 
 const onTxnDelete = (id) => {
-  transactions.value = [...transactions.value.filter((t) => t.id !== id)];
-  saveTransactionsToLocalStorage();
-  toast("Transaction deleted.", {
-    theme: "auto",
+  transactions.value = [...transactions.value.filter((t) => t.id !== id)]
+  saveTransactionsToLocalStorage()
+  toast('Transaction deleted.', {
+    theme: 'auto',
     autoClose: 1000,
-    type: "success",
-  });
-};
+    type: 'success',
+  })
+}
 
 const transactions = ref([
   {
     id: 1,
-    title: "Salary",
-    category: "Income",
-    date: "2024-12-01",
+    title: 'Salary',
+    category: 'Income',
+    date: '2024-12-01',
     amount: 1500,
   },
   {
     id: 2,
-    title: "Groceries",
-    category: "Food",
-    date: "2024-12-02",
+    title: 'Groceries',
+    category: 'Food',
+    date: '2024-12-02',
     amount: -250,
   },
-]);
+])
 
 onMounted(() => {
-  const savedTransactions = JSON.parse(localStorage.getItem("transactions"));
+  const savedTransactions = JSON.parse(localStorage.getItem('transactions'))
   if (savedTransactions) {
-    transactions.value = savedTransactions;
+    transactions.value = savedTransactions
   }
-});
+})
 
-const total = computed(() =>
-  transactions.value.reduce((sum, t) => sum + t.amount, 0),
-);
+const total = computed(() => transactions.value.reduce((sum, t) => sum + t.amount, 0))
 
 const income = computed(() =>
-  transactions.value
-    .filter((t) => t.amount > 0)
-    .reduce((sum, t) => sum + t.amount, 0),
-);
+  transactions.value.filter((t) => t.amount > 0).reduce((sum, t) => sum + t.amount, 0),
+)
 
 const expenses = computed(() =>
-  transactions.value
-    .filter((t) => t.amount < 0)
-    .reduce((sum, t) => sum + t.amount, 0),
-);
+  transactions.value.filter((t) => t.amount < 0).reduce((sum, t) => sum + t.amount, 0),
+)
 
 const txns = computed(() => {
-  let filtered = [...transactions.value];
-  if (filter.value !== "all") {
-    filtered = filtered.filter((t) =>
-      filter.value === "income" ? t.amount > 0 : t.amount < 0,
-    );
+  let filtered = [...transactions.value]
+  if (filter.value !== 'all') {
+    filtered = filtered.filter((t) => (filter.value === 'income' ? t.amount > 0 : t.amount < 0))
   }
   if (filterStore.startDate) {
-    filtered = filtered.filter(
-      (t) => new Date(t.date) >= new Date(filterStore.startDate),
-    );
+    filtered = filtered.filter((t) => new Date(t.date) >= new Date(filterStore.startDate))
   }
   if (filterStore.endDate) {
-    filtered = filtered.filter(
-      (t) => new Date(t.date) <= new Date(filterStore.endDate),
-    );
+    filtered = filtered.filter((t) => new Date(t.date) <= new Date(filterStore.endDate))
   }
-  if (filterStore.filterCategory !== "all") {
-    filtered = filtered.filter(
-      (t) => t.category === filterStore.filterCategory,
-    );
+  if (filterStore.filterCategory !== 'all') {
+    filtered = filtered.filter((t) => t.category === filterStore.filterCategory)
   }
-  return filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
-});
+  return filtered.sort((a, b) => new Date(b.date) - new Date(a.date))
+})
 const onTxnSubmit = (transaction) => {
-  const newTransaction = { ...transaction, id: generateUniqueId() };
-  transactions.value = [...transactions.value, newTransaction];
-  saveTransactionsToLocalStorage();
-  toast("Transaction added.", {
-    theme: "auto",
+  const newTransaction = { ...transaction, id: generateUniqueId() }
+  transactions.value = [...transactions.value, newTransaction]
+  saveTransactionsToLocalStorage()
+  toast('Transaction added.', {
+    theme: 'auto',
     autoClose: 1000,
-    type: "success",
-  });
-};
+    type: 'success',
+  })
+}
 const generateUniqueId = () => {
   if (transactions.value.length === 0) {
-    return 1;
+    return 1
   }
-  return Math.max(...transactions.value.map((t) => t.id)) + 1;
-};
+  return Math.max(...transactions.value.map((t) => t.id)) + 1
+}
 const saveTransactionsToLocalStorage = () => {
-  localStorage.setItem("transactions", JSON.stringify(transactions.value));
-};
+  localStorage.setItem('transactions', JSON.stringify(transactions.value))
+}
 const exportTransactions = () => {
   const dataStr =
-    "data:text/json;charset=utf-8," +
-    encodeURIComponent(JSON.stringify(transactions.value));
-  const downloadAnchorNode = document.createElement("a");
-  downloadAnchorNode.setAttribute("href", dataStr);
-  downloadAnchorNode.setAttribute("download", "transactions.json");
-  document.body.appendChild(downloadAnchorNode);
-  downloadAnchorNode.click();
-  downloadAnchorNode.remove();
-};
+    'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(transactions.value))
+  const downloadAnchorNode = document.createElement('a')
+  downloadAnchorNode.setAttribute('href', dataStr)
+  downloadAnchorNode.setAttribute('download', 'transactions.json')
+  document.body.appendChild(downloadAnchorNode)
+  downloadAnchorNode.click()
+  downloadAnchorNode.remove()
+}
 const importTransactions = (event) => {
-  const confirmation = confirm(
-    "This will remove previous data. Do you want to proceed?",
-  );
-  if (!confirmation) return;
-  const file = event.target.files[0];
-  const reader = new FileReader();
+  const confirmation = confirm('This will remove previous data. Do you want to proceed?')
+  if (!confirmation) return
+  const file = event.target.files[0]
+  const reader = new FileReader()
   reader.onload = (e) => {
     try {
-      const importedTransactions = JSON.parse(e.target.result);
+      const importedTransactions = JSON.parse(e.target.result)
       if (Array.isArray(importedTransactions)) {
-        transactions.value = importedTransactions;
-        saveTransactionsToLocalStorage();
-        toast("Transactions imported.", {
-          theme: "auto",
+        transactions.value = importedTransactions
+        saveTransactionsToLocalStorage()
+        toast('Transactions imported.', {
+          theme: 'auto',
           autoClose: 1000,
-          type: "success",
-        });
+          type: 'success',
+        })
       } else {
-        throw new Error("Invalid file format");
+        throw new Error('Invalid file format')
       }
     } catch (error) {
-      console.error("Import error:", error);
-      toast("Error importing transactions.", {
-        theme: "auto",
+      console.error('Import error:', error)
+      toast('Error importing transactions.', {
+        theme: 'auto',
         autoClose: 1000,
-        type: "error",
-      });
+        type: 'error',
+      })
     }
-  };
-  reader.readAsText(file);
-};
+  }
+  reader.readAsText(file)
+}
 const toggleSide = () => {
-  showSide.value = !showSide.value;
-};
+  showSide.value = !showSide.value
+}
 const onTxnAdd = () => {
-  showSide.value = true;
-};
+  showSide.value = true
+}
 </script>
 
 <style scoped>

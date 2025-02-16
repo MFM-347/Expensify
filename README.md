@@ -5,8 +5,9 @@ Explore **Expense-Tracker**, an intuitive, open-source tool for tracking persona
 ## Features
 
 - Modern UI with TailwindCSS
+- Installable as PWA
 - A new UI/UX Experience
-- Dark Mode Responsive
+- Dark Mode Available
 - User Friendly UI
 - Mobile Optimized
 - Save Data to local storage
@@ -53,9 +54,10 @@ npm start
 
 - [VueJS](https://github.com/vuejs) For Markup and Script
 - [TailwindCSS](https://github.com/tailwindlabs/tailwindcss) For Styles
-- [Font Awesome](https://github.com/FortAwesome/Font-Awesome) For Icons
+- [HeroIcons](https://github.com/tailwindlabs/heroicons) For Icons
 - [Vue3 Toastify](https://github.com/jerrywu001/vue3-toastify) For Notification UI
 - [ViteJS](https://github.com/vitejs) For Development Server and Front-End Build Tool
+- [Vite PWA](https://github.com/vite-pwa) for installation and offline usage
 
 ## License
 
