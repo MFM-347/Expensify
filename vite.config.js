@@ -28,7 +28,7 @@ export default defineConfig({
         screenshots: [
           {
             src: '/screenshot.webp',
-            sizes: '1920x1440',
+            sizes: '2400x1260',
             type: 'image/webp',
           },
         ],
