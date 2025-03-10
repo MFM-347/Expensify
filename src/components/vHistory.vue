@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex items-center justify-between mb-6">
+    <div class="mb-6 flex items-center justify-between">
       <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-200">Transaction History</h3>
       <div class="text-sm text-gray-500 dark:text-gray-400">
         {{ txns.length }} transaction{{ txns.length !== 1 ? 's' : '' }}
@@ -10,17 +10,17 @@
       <li
         v-for="txn in txns"
         :key="txn.id"
-        class="group relative flex items-center justify-between px-6 py-4 rounded-xl transition-all duration-300 hover:shadow-md min-w-[80%]"
+        class="group relative flex min-w-[80%] items-center justify-between rounded-xl px-6 py-4 transition-all duration-300 hover:shadow-md"
         :class="[
           txn.amount < 0
-            ? 'bg-red-100 dark:bg-red-900/20 border border-red-200 dark:border-red-800'
-            : 'bg-green-100 dark:bg-green-900/20 border border-green-200 dark:border-green-800',
+            ? 'border border-red-200 bg-red-100 dark:border-red-800 dark:bg-red-900/20'
+            : 'border border-green-200 bg-green-100 dark:border-green-800 dark:bg-green-900/20',
         ]"
       >
-        <div class="flex-1 min-w-[60%] max-w-[60%]">
+        <div class="max-w-[60%] min-w-[60%] flex-1">
           <div class="flex items-center space-x-3">
             <span
-              class="text-lg font-semibold truncate"
+              class="truncate text-lg font-semibold"
               :class="
                 txn.amount < 0
                   ? 'text-red-700 dark:text-red-400'
@@ -30,17 +30,17 @@
               {{ txn.title }}
             </span>
             <span
-              class="px-3 py-1 sm:py-2 text-sm rounded-full"
+              class="rounded-full px-3 py-1 text-sm sm:py-2"
               :class="
                 txn.amount < 0
-                  ? 'bg-red-100 dark:bg-red-800/40 text-red-700 dark:text-red-300'
-                  : 'bg-green-100 dark:bg-green-800/40 text-green-700 dark:text-green-300'
+                  ? 'bg-red-100 text-red-700 dark:bg-red-800/40 dark:text-red-300'
+                  : 'bg-green-100 text-green-700 dark:bg-green-800/40 dark:text-green-300'
               "
             >
               {{ txn.category }}
             </span>
           </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
             <span class="sm:hidden">
               {{
                 new Date(txn.date).toLocaleDateString('en-US', {
@@ -80,10 +80,10 @@
           </span>
           <button
             @click="onDelete(txn.id)"
-            class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 p-2 rounded-lg hover:bg-red-100 dark:hover:bg-red-800/40"
+            class="rounded-lg p-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100 hover:bg-red-100 dark:hover:bg-red-800/40"
             title="Delete Transaction"
           >
-            <TrashIcon class="w-5 h-5 text-red-500" />
+            <TrashIcon class="h-5 w-5 text-red-500" />
           </button>
         </div>
       </li>
@@ -92,9 +92,9 @@
       v-if="txns.length === 0"
       class="flex flex-col items-center justify-center py-12 text-center"
     >
-      <NoSymbolIcon class="w-16 h-16 text-gray-400 dark:text-gray-600 mb-4" />
-      <p class="text-gray-500 dark:text-gray-400 text-lg mb-2">No transactions found</p>
-      <p class="text-gray-400 dark:text-gray-500 text-sm">
+      <NoSymbolIcon class="mb-4 h-16 w-16 text-gray-400 dark:text-gray-600" />
+      <p class="mb-2 text-lg text-gray-500 dark:text-gray-400">No transactions found</p>
+      <p class="text-sm text-gray-400 dark:text-gray-500">
         {{
           filter === 'all'
             ? 'Add a new transaction to get started'

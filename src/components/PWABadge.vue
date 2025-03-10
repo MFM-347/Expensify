@@ -2,17 +2,9 @@
 import { computed, ref } from 'vue'
 import { useRegisterSW } from 'virtual:pwa-register/vue'
 
-// periodic sync is disabled, change the value to enable it, the period is in milliseconds
-// You can remove onRegisteredSW callback and registerPeriodicSync function
 const period = 0
-
 const swActivated = ref(false)
 
-/**
- * This function will register a periodic sync check every hour, you can modify the interval as needed.
- * @param {string} swUrl
- * @param {ServiceWorkerRegistration} r
- */
 function registerPeriodicSync(swUrl, r) {
   if (period <= 0) return
 
@@ -21,10 +13,7 @@ function registerPeriodicSync(swUrl, r) {
 
     const resp = await fetch(swUrl, {
       cache: 'no-store',
-      headers: {
-        cache: 'no-store',
-        'cache-control': 'no-cache',
-      },
+      headers: { 'cache-control': 'no-cache' },
     })
 
     if (resp?.status === 200) await r.update()
@@ -49,10 +38,9 @@ const { needRefresh, updateServiceWorker } = useRegisterSW({
   },
 })
 
-const title = computed(() => {
-  if (needRefresh.value) return 'New content available, click on reload button to update.'
-  return ''
-})
+const title = computed(() =>
+  needRefresh.value ? 'New update available! Reload to apply changes.' : '',
+)
 
 function close() {
   needRefresh.value = false
@@ -60,48 +48,45 @@ function close() {
 </script>
 
 <template>
-  <div v-if="needRefresh" class="pwa-toast" aria-labelledby="toast-message" role="alert">
-    <div class="message">
-      <span id="toast-message">
+  <transition name="fade">
+    <div
+      v-if="needRefresh"
+      class="fixed bottom-6 left-6 z-50 flex w-80 flex-col rounded-lg border border-gray-400 bg-zinc-200 p-4 shadow-lg dark:border-gray-600 dark:bg-zinc-800"
+      aria-labelledby="toast-message"
+      role="alert"
+    >
+      <span id="toast-message" class="mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">
         {{ title }}
       </span>
+      <div class="flex justify-end gap-2">
+        <button
+          type="button"
+          class="rounded-md bg-blue-600 px-3 py-1 text-zinc-100 shadow-md ta-150 hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          @click="updateServiceWorker()"
+        >
+          Reload
+        </button>
+        <button
+          type="button"
+          class="rounded-md border border-gray-400 px-3 py-1 text-gray-700 ta-150 hover:bg-zinc-200 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-zinc-700"
+          @click="close"
+        >
+          Close
+        </button>
+      </div>
     </div>
-    <div class="buttons">
-      <button type="button" class="reload" @click="updateServiceWorker()">Reload</button>
-      <button type="button" @click="close">Close</button>
-    </div>
-  </div>
+  </transition>
 </template>
 
-<style scoped>
-.pwa-toast {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  margin: 16px;
-  padding: 12px;
-  border: 1px solid #8885;
-  border-radius: 4px;
-  z-index: 1;
-  text-align: left;
-  box-shadow: 3px 4px 5px 0 #8885;
-  display: grid;
-  background-color: white;
+<style>
+@reference "@/style.css"
+
+.fade-enter-active, .fade-leave-active {
+  @apply ta-250;
 }
-.pwa-toast .message {
-  margin-bottom: 8px;
-}
-.pwa-toast .buttons {
-  display: flex;
-}
-.pwa-toast button {
-  border: 1px solid #8885;
-  outline: none;
-  margin-right: 5px;
-  border-radius: 2px;
-  padding: 3px 10px;
-}
-.pwa-toast button.reload {
-  display: block;
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
 }
 </style>

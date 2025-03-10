@@ -4,6 +4,7 @@ import tailwind from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import Sitemap from 'vite-plugin-sitemap'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -22,7 +23,7 @@ export default defineConfig({
         name: 'Expense Tracker',
         short_name: 'ExpenseTrack',
         description:
-          'Expense Tracker is an open-source tool to help you manage personal finances, track spending, and achieve financial goals. Modern UI, dark mode, mobile optimized.',
+          'Track your expenses effortlessly with this modern, high-performance PWA. Enjoy a user-friendly UI, dark mode, offline support, local storage, smooth transitions, and privacy-focused expense management. Import/export data as JSON—zero backend required.',
         theme_color: '#155dfc',
         background_color: '#f4f4f5',
         screenshots: [
@@ -38,13 +39,17 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
         clientsClaim: true,
       },
-
       devOptions: {
         enabled: false,
         navigateFallback: 'index.html',
         suppressWarnings: true,
         type: 'module',
       },
+    }),
+    Sitemap({
+      hostname: 'https://mfm-347.github.io/Expense-Tracker/',
+      changefreq: 'weekly',
+      generateRobotsTxt: true,
     }),
   ],
   base: '/Expense-Tracker/',

@@ -1,42 +1,40 @@
 <template>
   <vNav @toggle-sidebar="toggleSide" @add-transaction="onTxnAdd" />
   <div class="container mx-auto px-4 py-8">
-    <div class="relative grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div class="relative grid grid-cols-1 gap-8 lg:grid-cols-12">
       <Transition name="sidebar">
         <div
           v-show="showSide"
-          class="fixed lg:relative inset-y-0 left-0 z-40 lg:z-0 w-80 lg:w-auto bg-white dark:bg-zinc-900 shadow-2xl lg:shadow-none overflow-y-auto lg:overflow-visible lg:col-span-3"
+          class="fixed inset-y-0 left-0 z-40 w-80 overflow-y-auto bg-white shadow-2xl lg:relative lg:z-0 lg:col-span-3 lg:w-auto lg:overflow-visible lg:shadow-none dark:bg-zinc-900"
         >
           <div
-            class="sticky top-8 h-[calc(100vh-4rem)] overflow-y-scroll px-4 lg:px-0 py-8 lg:py-0 scroll scroll-smooth"
+            class="scroll sticky top-8 h-[calc(100vh-4rem)] overflow-y-scroll scroll-smooth px-4 py-8 lg:px-0 lg:py-0"
           >
             <vSide :filter="filter" @filterChanged="updateFilter" @txnSubmitted="onTxnSubmit" />
           </div>
         </div>
       </Transition>
-      <Transition name="fade">
-        <div
-          v-if="showSide"
-          @click="toggleSide"
-          class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
-        ></div>
-      </Transition>
+      <div
+        v-if="showSide"
+        @click="toggleSide"
+        class="bg-opacity-50 fixed inset-0 z-30 bg-black lg:hidden"
+      ></div>
       <div
         :class="[
           'transition-all duration-300',
-          'lg:col-span-9 space-y-8',
-          showSide ? 'lg:ml-0' : 'lg:col-start-1 lg:col-span-12',
+          'space-y-8 lg:col-span-9',
+          showSide ? 'lg:ml-0' : 'lg:col-span-12 lg:col-start-1',
         ]"
       >
         <vBalance :tot="total" :inc="income" :exp="expenses" />
 
         <div
-          class="bg-white dark:bg-zinc-800 rounded-xl shadow-lg border border-gray-200 dark:border-zinc-700 p-6"
+          class="rounded-xl border border-gray-200 bg-white p-6 shadow-lg dark:border-zinc-700 dark:bg-zinc-800"
         >
           <vHistory :txns="txns" :filter="filter" @txnDeleted="onTxnDelete" />
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <input
             type="file"
             accept=".json"
@@ -46,16 +44,16 @@
           />
           <label
             for="fileInput"
-            class="btn flex items-center justify-center cursor-pointer bg-primary-500 hover:bg-primary-600 text-white rounded-xl shadow-md py-3 px-6 transition-all duration-300 hover:shadow-lg transform hover:scale-102"
+            class="btn bg-primary-500 hover:bg-primary-600 flex transform cursor-pointer items-center justify-center rounded-xl px-6 py-3 text-white shadow-md transition-all duration-300 hover:scale-102 hover:shadow-lg"
           >
-            <ArrowUpTrayIcon class="w-5 h-5 mr-2" />
+            <ArrowUpTrayIcon class="mr-2 h-5 w-5" />
             Import Transactions
           </label>
           <button
-            class="btn flex items-center justify-center bg-primary-500 hover:bg-primary-600 text-white rounded-xl shadow-md py-3 px-6 transition-all duration-300 hover:shadow-lg transform"
+            class="btn bg-primary-500 hover:bg-primary-600 flex transform items-center justify-center rounded-xl px-6 py-3 text-white shadow-md transition-all duration-300 hover:shadow-lg"
             @click="exportTransactions"
           >
-            <ArrowDownTrayIcon class="w-5 h-5 mr-2" />
+            <ArrowDownTrayIcon class="mr-2 h-5 w-5" />
             Export Transactions
           </button>
         </div>
@@ -80,13 +78,11 @@ import PWABadge from './components/PWABadge.vue'
 const filterStore = useFilterStore()
 const filter = ref('all')
 const showSide = ref(false)
-
-const updateFilter = (filter) => {
-  filter.value = filter
+const updateFilter = (newFilter) => {
+  filter.value = newFilter
 }
-
 const onTxnDelete = (id) => {
-  transactions.value = [...transactions.value.filter((t) => t.id !== id)]
+  transactions.value = transactions.value.filter((t) => t.id !== id)
   saveTransactionsToLocalStorage()
   toast('Transaction deleted.', {
     theme: 'auto',
@@ -94,7 +90,6 @@ const onTxnDelete = (id) => {
     type: 'success',
   })
 }
-
 const transactions = ref([
   {
     id: 1,
@@ -111,28 +106,25 @@ const transactions = ref([
     amount: -250,
   },
 ])
-
 onMounted(() => {
   const savedTransactions = JSON.parse(localStorage.getItem('transactions'))
   if (savedTransactions) {
     transactions.value = savedTransactions
   }
 })
-
 const total = computed(() => transactions.value.reduce((sum, t) => sum + t.amount, 0))
-
 const income = computed(() =>
   transactions.value.filter((t) => t.amount > 0).reduce((sum, t) => sum + t.amount, 0),
 )
-
 const expenses = computed(() =>
   transactions.value.filter((t) => t.amount < 0).reduce((sum, t) => sum + t.amount, 0),
 )
-
 const txns = computed(() => {
   let filtered = [...transactions.value]
   if (filter.value !== 'all') {
-    filtered = filtered.filter((t) => (filter.value === 'income' ? t.amount > 0 : t.amount < 0))
+    filtered = filtered.filter((t) =>
+      filter.value.toLowerCase() === 'income' ? t.amount > 0 : t.amount < 0,
+    )
   }
   if (filterStore.startDate) {
     filtered = filtered.filter((t) => new Date(t.date) >= new Date(filterStore.startDate))
@@ -141,7 +133,9 @@ const txns = computed(() => {
     filtered = filtered.filter((t) => new Date(t.date) <= new Date(filterStore.endDate))
   }
   if (filterStore.filterCategory !== 'all') {
-    filtered = filtered.filter((t) => t.category === filterStore.filterCategory)
+    filtered = filtered.filter(
+      (t) => t.category.toLowerCase() === filterStore.filterCategory.toLowerCase(),
+    )
   }
   return filtered.sort((a, b) => new Date(b.date) - new Date(a.date))
 })
@@ -213,23 +207,15 @@ const onTxnAdd = () => {
 </script>
 
 <style scoped>
+@reference "@/style.css";
+
 .sidebar-enter-active,
 .sidebar-leave-active {
-  transition:
-    transform 0.3s ease-in-out,
-    opacity 0.3s ease-in-out;
+  @apply ta-300;
 }
 .sidebar-enter-from,
 .sidebar-leave-to {
   transform: translateX(-100%);
-  opacity: 0;
-}
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s ease-in-out;
-}
-.fade-enter-from,
-.fade-leave-to {
   opacity: 0;
 }
 </style>

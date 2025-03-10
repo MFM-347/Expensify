@@ -1,19 +1,21 @@
 # Expense Tracker
 
-Explore **Expense-Tracker**, an intuitive, open-source tool for tracking personal finances. Perfect for budget management, spending monitoring, and achieving financial goals.
+Track your expenses effortlessly with this modern, high-performance PWA. Enjoy a user-friendly UI, dark mode, offline support, local storage, smooth transitions, and privacy-focused expense management. Import/export data as JSON—zero backend required.
 
 ## Features
 
 - Modern UI with TailwindCSS
 - Installable as PWA
-- A new UI/UX Experience
+- High Performance
+- A modern UI/UX Experience
 - Dark Mode Available
-- User Friendly UI
+- User-Friendly UI
 - Mobile Optimized
 - Save Data to local storage
-- Export Data as JSON
-- Import Data from JSON
-- Uses Vue 3 syntax
+- Import and Export expenses as JSON
+- Smooth Transitions for better interaction
+- Privacy focused
+- Zero Backend
 
 ## Project Setup
 
