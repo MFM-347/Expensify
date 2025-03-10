@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mfm-347.github.io/Expense-Tracker/sitemap.xml

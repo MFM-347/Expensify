@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="language" content="English" />
     <meta name="author" content="Farhan Madni" />
     <meta name="robots" content="index,follow,max-image-preview:large" />
@@ -14,65 +14,91 @@
     <meta name="theme-color" content="#155dfc" />
     <meta
       name="description"
-      content="Expense Tracker is an open-source tool to help you manage personal finances, track spending, and achieve financial goals. Modern UI, dark mode, mobile optimized."
+      content="Track your expenses effortlessly with this modern, high-performance PWA. Enjoy a user-friendly UI, dark mode, offline support, local storage, smooth transitions, and privacy-focused expense management. Import/export data as JSON—zero backend required."
     />
     <meta
       name="keywords"
-      content="expense tracker, finance management, budgeting, spending tracker, personal finance"
+      content="Expense Tracker, Budget App, Personal Finance, PWA, Spending Manager, Dark Mode, Offline Expense Manager, Local Storage, Privacy-Focused, High Performance UI, Smooth Transitions"
     />
-    <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:title" content="Expense Tracker - Manage Your Personal Finances" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Expense Tracker" />
+    <meta property="og:title" content="Modern Expense Tracker - Private & Offline Budgeting" />
     <meta
       property="og:description"
-      content="Expense Tracker is an open-source tool to help you manage personal finances, track spending, and achieve financial goals. Modern UI, dark mode, mobile optimized."
+      content="Track your expenses effortlessly with this modern, high-performance PWA. Enjoy a user-friendly UI, dark mode, offline support, local storage, smooth transitions, and privacy-focused expense management. Import/export data as JSON—zero backend required."
     />
     <meta property="og:url" content="https://mfm-347.github.io/Expense-Tracker/" />
-    <meta property="og:image" content="https://mfm-347.github.io/Expense-Tracker/image.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="Expense Tracker" />
+    <meta property="og:image" content="https://mfm-347.github.io/Expense-Tracker/screenshot.webp" />
+    <meta property="og:image:alt" content="Expense Tracker Screenshot" />
+    <meta property="og:image:width" content="1920" />
+    <meta property="og:image:height" content="1440" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Expense Tracker - Manage Your Personal Finances" />
+    <meta name="twitter:title" content="Modern Expense Tracker - Private & Offline Budgeting" />
     <meta
       name="twitter:description"
-      content="Expense Tracker is an open-source tool to help you manage personal finances, track spending, and achieve financial goals. Modern UI, dark mode, mobile optimized."
+      content="Track your expenses effortlessly with this modern, high-performance PWA. Enjoy a user-friendly UI, dark mode, offline support, local storage, smooth transitions, and privacy-focused expense management. Import/export data as JSON—zero backend required."
     />
-    <meta name="twitter:image" content="https://mfm-347.github.io/Expense-Tracker/image.png" />
+    <meta
+      name="twitter:image"
+      content="https://mfm-347.github.io/Expense-Tracker/screenshot.webp"
+    />
+    <meta property="twitter:image:alt" content="Expense Tracker Screenshot" />
     <link rel="canonical" href="https://mfm-347.github.io/Expense-Tracker/" />
-    <title>Expense Tracker - Manage Your Personal Finances</title>
-    <meta name="google-site-verification" content="9C3mmoooLN2NLh5PUEVgr98hTKYWPIarhqp7Efdfwuo" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="anonymous" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <title>Modern Expense Tracker - PWA for Private Finance Management</title>
+    <meta name="google-site-verification" content="-xWqjRot1NGeSvreDzXErYTsf_ILoePMlQQj1AGNd4g" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+      media="print"
+      onload="this.onload=null;this.removeAttribute('media');"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet"
+    /></noscript>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Expense Tracker",
         "url": "https://mfm-347.github.io/Expense-Tracker/",
-        "image": "https://mfm-347.github.io/Expense-Tracker/image.png",
+        "image": "https://mfm-347.github.io/Expense-Tracker/screenshot.webp",
+        "logo": "https://mfm-347.github.io/Expense-Tracker/icon.svg",
         "author": {
           "@type": "Person",
           "name": "Farhan Madni",
-          "url": "https://github.com/mfm-347"
+          "url": "https://xyzdev.vercel.app"
         },
-        "mainEntityOfPage": "https://mfm-347.github.io/Expense-Tracker/",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://mfm-347.github.io/Expense-Tracker/"
+        },
+        "description": "Track your expenses effortlessly with this modern, high-performance PWA. Enjoy a user-friendly UI, dark mode, offline support, local storage, smooth transitions, and privacy-focused expense management.",
+        "browserRequirements": "Requires JavaScript. Works best on modern browsers.",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
         "sameAs": [
           "https://github.com/mfm-347",
           "https://dev.to/mfm-347",
           "https://codepen.io/mfm-347/",
+          "https://twitter.com/@mfm347",
           "https://xyzdev.vercel.app/"
-        ],
-        "description": "Expense Tracker is an open-source tool to help you manage personal finances, track spending, and achieve financial goals. Modern UI, dark mode, mobile optimized."
+        ]
       }
     </script>
     <link rel="icon" type="image/svg+xml" href="/Expense-Tracker/icon.svg" />
-    <script type="module" crossorigin src="/Expense-Tracker/assets/index-D5cH7BWQ.js"></script>
-    <link rel="stylesheet" crossorigin href="/Expense-Tracker/assets/index-Da8GdsBI.css">
+    <script type="module" crossorigin src="/Expense-Tracker/assets/index-2m9i7cvh.js"></script>
+    <link rel="stylesheet" crossorigin href="/Expense-Tracker/assets/index-Dm2PBChp.css">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="manifest" href="/Expense-Tracker/manifest.webmanifest">
 <meta name="theme-color" content="#155dfc">
 <link rel="icon" href="/Expense-Tracker/favicon.ico" sizes="48x48">
