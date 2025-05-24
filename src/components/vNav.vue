@@ -9,7 +9,7 @@
       href="https://mfm-347.github.io/Expense-Tracker/"
       class="text-xl font-semibold ta-225 hover:opacity-80 sm:text-2xl"
     >
-      Expense Tracker
+      Expensify Pro
     </a>
     <div class="ml-auto flex items-center gap-x-3 sm:gap-x-4">
       <button @click="toggleTheme" class="ic" :aria-label="`Enable ${t} Mode`">

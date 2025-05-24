@@ -1,4 +1,4 @@
-# Expense Tracker
+# Expensify Pro
 
 Track your expenses effortlessly with this modern, high-performance PWA. Enjoy a user-friendly UI, dark mode, offline support, local storage, smooth transitions, and privacy-focused expense management. Import/export data as JSON—zero backend required.
 
