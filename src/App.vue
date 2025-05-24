@@ -60,7 +60,6 @@
       </div>
     </div>
   </div>
-  <PWABadge />
 </template>
 
 <script setup>
@@ -73,7 +72,6 @@ import vNav from './components/vNav.vue'
 import vBalance from './components/vBalance.vue'
 import vHistory from './components/vHistory.vue'
 import vSide from './components/vSide.vue'
-import PWABadge from './components/PWABadge.vue'
 
 const filterStore = useFilterStore()
 const filter = ref('all')

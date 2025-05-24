@@ -13,8 +13,7 @@ export default defineConfig({
     vueDevTools(),
     tailwind(),
     VitePWA({
-      registerType: 'prompt',
-      injectRegister: false,
+      registerType: 'autoUpdate',
 
       pwaAssets: {
         disabled: false,
