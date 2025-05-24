@@ -4,7 +4,7 @@ import tailwind from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
-import Sitemap from 'vite-plugin-sitemap'
+import generateSitemap from 'vite-ssg-sitemap'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -15,13 +15,15 @@ export default defineConfig({
     VitePWA({
       registerType: 'prompt',
       injectRegister: false,
+
       pwaAssets: {
         disabled: false,
         config: true,
       },
+
       manifest: {
-        name: 'Expense Tracker',
-        short_name: 'ExpenseTrack',
+        name: 'Expensify Pro',
+        short_name: 'Expensify',
         description:
           'Track your expenses effortlessly with this modern, high-performance PWA. Enjoy a user-friendly UI, dark mode, offline support, local storage, smooth transitions, and privacy-focused expense management. Import/export data as JSON—zero backend required.',
         theme_color: '#155dfc',
@@ -34,11 +36,13 @@ export default defineConfig({
           },
         ],
       },
+
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,webp,png,ico}'],
+        globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
         cleanupOutdatedCaches: true,
         clientsClaim: true,
       },
+
       devOptions: {
         enabled: false,
         navigateFallback: 'index.html',
@@ -46,13 +50,23 @@ export default defineConfig({
         type: 'module',
       },
     }),
-    Sitemap({
-      hostname: 'https://mfm-347.github.io/Expense-Tracker/',
-      changefreq: 'weekly',
-      generateRobotsTxt: true,
-    }),
   ],
-  base: '/Expense-Tracker/',
+  base: '/Expensify/',
+  ssgOptions: {
+    beastiesOptions: {
+      preload: 'media',
+      reduceInlineStyles: false,
+    },
+    script: 'async',
+    formatting: 'minify',
+    onFinished() {
+      generateSitemap({
+        hostname: 'https://mfm-347.github.io/Expensify/',
+        changefreq: 'weekly',
+        generateRobotsTxt: true,
+      })
+    },
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

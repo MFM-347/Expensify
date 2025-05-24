@@ -5,22 +5,27 @@ import { useRegisterSW } from 'virtual:pwa-register/vue'
 const period = 0
 const swActivated = ref(false)
 
+/**
+ * Periodic SW ping
+ */
 function registerPeriodicSync(swUrl, r) {
   if (period <= 0) return
-
   setInterval(async () => {
     if ('onLine' in navigator && !navigator.onLine) return
 
     const resp = await fetch(swUrl, {
       cache: 'no-store',
-      headers: { 'cache-control': 'no-cache' },
+      headers: {
+        cache: 'no-store',
+        'cache-control': 'no-cache',
+      },
     })
 
     if (resp?.status === 200) await r.update()
   }, period)
 }
 
-const { needRefresh, updateServiceWorker } = useRegisterSW({
+const { offlineReady, needRefresh, updateServiceWorker } = useRegisterSW({
   immediate: true,
   onRegisteredSW(swUrl, r) {
     if (period <= 0) return
@@ -29,7 +34,6 @@ const { needRefresh, updateServiceWorker } = useRegisterSW({
       registerPeriodicSync(swUrl, r)
     } else if (r?.installing) {
       r.installing.addEventListener('statechange', (e) => {
-        /** @type {ServiceWorker} */
         const sw = e.target
         swActivated.value = sw.state === 'activated'
         if (swActivated.value) registerPeriodicSync(swUrl, r)
@@ -38,11 +42,14 @@ const { needRefresh, updateServiceWorker } = useRegisterSW({
   },
 })
 
-const title = computed(() =>
-  needRefresh.value ? 'New update available! Reload to apply changes.' : '',
-)
+const title = computed(() => {
+  if (offlineReady.value) return 'App ready to work offline'
+  if (needRefresh.value) return 'New content available. Click reload to update.'
+  return ''
+})
 
 function close() {
+  offlineReady.value = false
   needRefresh.value = false
 }
 </script>
@@ -50,7 +57,7 @@ function close() {
 <template>
   <transition name="fade">
     <div
-      v-if="needRefresh"
+      v-if="offlineReady || needRefresh"
       class="fixed bottom-6 left-6 z-50 flex w-80 flex-col rounded-lg border border-gray-400 bg-zinc-200 p-4 shadow-lg dark:border-gray-600 dark:bg-zinc-800"
       aria-labelledby="toast-message"
       role="alert"
@@ -60,6 +67,7 @@ function close() {
       </span>
       <div class="flex justify-end gap-2">
         <button
+          v-if="needRefresh"
           type="button"
           class="rounded-md bg-blue-600 px-3 py-1 text-zinc-100 shadow-md ta-150 hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
           @click="updateServiceWorker()"
